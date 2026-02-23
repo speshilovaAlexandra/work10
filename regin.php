@@ -19,6 +19,7 @@
 		<title> Регистрация </title>
 		
 		<script src="https://code.jquery.com/jquery-1.8.3.js"></script>
+		<script src="https://www.google.com/recaptcha/api.js"></script>
 		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
@@ -43,7 +44,9 @@
 					<input name="_password" type="password" placeholder="" onkeypress="return PressToEnter(event)"/>
 					<div class = "sub-name">Повторите пароль:</div>
 					<input name="_passwordCopy" type="password" placeholder="" onkeypress="return PressToEnter(event)"/>
-					
+					<center>
+						<div class="g-recaptcha" data-sitekey="6LedLnUsAAAAANJh29I1sgUwbsXaporTZXR8yp51"></div>
+					</center>
 					<a href="login.php">Вернуться</a>
 					<input type="button" class="button" value="Зайти" onclick="RegIn()" style="margin-top: 0px;"/>
 					<img src = "img/loading.gif" class="loading" style="margin-top: 0px;"/>
@@ -65,7 +68,11 @@
 				var _login = document.getElementsByName("_login")[0].value;
 				var _password = document.getElementsByName("_password")[0].value;
 				var _passwordCopy = document.getElementsByName("_passwordCopy")[0].value;
-				
+				var captcha = grecaptcha.getResponse();
+				if(captcha.length == 0){
+					alert("Пройдите капчу");
+					return
+				}
 				if(_login != "") {
 					if(_password != "") {
 						if(_password == _passwordCopy) {
@@ -75,6 +82,7 @@
 							var data = new FormData();
 							data.append("login", _login);
 							data.append("password", _password);
+							data.append('g-recaptcha-response', captcha);
 							
 							// AJAX запрос
 							$.ajax({
