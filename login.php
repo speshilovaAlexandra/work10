@@ -68,7 +68,7 @@
 				var _password = document.getElementsByName("_password")[0].value;
 				var captcha = grecaptcha.getResponse();
 				if(captcha.length == 0){
-					alert("Пройдите капчу");
+					alert("Пройдите captcha");
 					return
 				}
 				loading.style.display = "block";

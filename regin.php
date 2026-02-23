@@ -70,7 +70,7 @@
 				var _passwordCopy = document.getElementsByName("_passwordCopy")[0].value;
 				var captcha = grecaptcha.getResponse();
 				if(captcha.length == 0){
-					alert("Пройдите капчу");
+					alert("Пройдите captcha");
 					return
 				}
 				if(_login != "") {
